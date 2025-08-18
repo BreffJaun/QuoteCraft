@@ -32,8 +32,8 @@
 		DB8A47B42D43AFD2001C2B3B = {
 			isa = PBXGroup;
 			children = (
-				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
 				DB8A47BE2D43AFD3001C2B3B /* Products */,
+				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
 			);
 			sourceTree = "<group>";
 		};
