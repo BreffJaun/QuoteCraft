@@ -7,8 +7,8 @@
     - => Zitat anzeigen bei App-Start
     - => Bei jedem App-Start wird ein neues, zufälliges Zitat angezeigt.
     - => Zusätzlicher Button zum Aktualisieren
-    - 
-    
+    - => "Suitable Quotes" => nach Favoriten Categories automatisch generierte Liste an Quote Vorschlägen
+    - => UserProfileSheet zur Bearbeitung der User data
     
 - QuotesView
     - => Alle quotes
@@ -25,10 +25,12 @@
 
 ## SubViews
 
+- QuoteListItemView
 - QuoteDetailView 
     - View zum Anzeigen eines Zitats mit Autor:in
 - Sheet: zum Anlegen neuer Quotes
     - Favoriten in SwiftData speichern
+- Sheet: UserProfileSheet
     
 ## Enums
 
@@ -59,6 +61,7 @@ enum Category: String, CaseIterable {
 - User
     - id: UUID
     - username: String
+    - var favCategeories: [Category]
     - @Relationship var favorites: [Quote]
     - @Relationship var quotes: [Quote] => Zitate die der user eingestellt/erstellt hat
 
