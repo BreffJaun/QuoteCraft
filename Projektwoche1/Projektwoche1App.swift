@@ -13,7 +13,8 @@ struct Projektwoche1App: App {
     var body: some Scene {
         WindowGroup {
             TabBarView()
-                .modelContainer(for: [User.self, Quote.self])
+//                .modelContainer(for: [User.self, Quote.self])
+                .modelContainer(DataManager.container)
         }
     }
 }

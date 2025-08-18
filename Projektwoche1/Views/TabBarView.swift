@@ -31,8 +31,9 @@ struct TabBarView: View {
 
 #Preview {
     TabBarView()
-        .modelContainer(for: [
-            User.self,
-            Quote.self
-        ], inMemory: true)
+//        .modelContainer(for: [
+//            User.self,
+//            Quote.self
+//        ], inMemory: true)
+        .modelContainer(DataManager.previewContainer)
 }
