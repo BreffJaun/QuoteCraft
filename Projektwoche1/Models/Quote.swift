@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Quote {
+class Quote: Identifiable {
     @Attribute(.unique) var id: UUID = UUID()
     var authorName: String
     var title: String

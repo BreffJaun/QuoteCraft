@@ -18,7 +18,7 @@ struct MatchingQuotesView: View {
     @State private var currentUser: User = User(id: UUID(), username: "Unknown")
     
     var matchingQuotes: [Quote] {
-        quotes
+        (quotes as [Quote])
             .filter { quote in
             !quote.categories.isEmpty &&
             quote.categories.contains(where: {currentUser.favCategories.contains($0)})
@@ -45,9 +45,10 @@ struct MatchingQuotesView: View {
                 HStack {
                     Text("No matching Quotes found.")
                     Spacer()
+                    Text(currentUser.username)
                 }
             } else {
-                ForEach(matchingQuotes) { quote in
+                ForEach(matchingQuotes, id: \.id) { (quote: Quote) in
                     let matchingCount = quote.categories.filter {
                         currentUser.favCategories.contains($0)
                     }.count
@@ -55,6 +56,7 @@ struct MatchingQuotesView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(quote.title)
+                                Text("\(matchingCount) machting Categories out of \(quote.categories.count)")
                             }
                         }
                     }

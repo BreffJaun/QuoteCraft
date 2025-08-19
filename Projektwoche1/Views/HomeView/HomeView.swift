@@ -10,6 +10,9 @@ import SwiftData
 
 struct HomeView: View {
     @Query private var quotes: [Quote]
+    @Query private var users: [User]
+    
+    @AppStorage("currentUserId") private var currentUserId: String?
     
     @State private var showUserProfileSheet: Bool = false
     @State private var showAddQuoteSheet: Bool = false
@@ -45,6 +48,7 @@ struct HomeView: View {
             .sheet(isPresented: $showUserProfileSheet) {
                 UserProfilSheet()
             }
+           
         }
     }
 }

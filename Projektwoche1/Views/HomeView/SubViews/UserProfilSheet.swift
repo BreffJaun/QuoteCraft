@@ -13,6 +13,7 @@ struct UserProfilSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     
+    @Query private var users: [User]
     
     @State private var username = ""
     @State private var selectedCategories: Set<Category> = []
@@ -60,6 +61,7 @@ struct UserProfilSheet: View {
                     )
                     context.insert(newUser)
                     currentUserId = newUser.id.uuidString
+                   // currentUserId = users[0].id.uuidString
                     dismiss()
                 } label: {
                     Text("safe")
