@@ -48,7 +48,7 @@ struct MatchingQuotesView: View {
                 }
             } else {
                 ForEach(matchingQuotes) { quote in
-                    var matchingCount = quote.categories.filter {
+                    let matchingCount = quote.categories.filter {
                         currentUser.favCategories.contains($0)
                     }.count
                     NavigationLink(destination: QuoteDetailView(quote: quote)) {
