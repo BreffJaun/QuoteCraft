@@ -31,7 +31,7 @@ struct MatchingQuotesView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 12) {
             Text("Matching Quotes")
                 .font(.title2.weight(.semibold))
                 .foregroundColor(.white)
@@ -42,7 +42,6 @@ struct MatchingQuotesView: View {
                     HStack {
                         Text("No matching Quotes found.")
                         Spacer()
-                        Text(currentUser.username)
                     }
                 } else {
                     ForEach(matchingQuotes, id: \.id) { quote in
@@ -51,11 +50,32 @@ struct MatchingQuotesView: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(quote.title)
+                                        .font(.subheadline)
+                                        .foregroundColor(.white)
                                     Text("\(matchingCount) matching Categories out of \(quote.categories.count)")
                                         .font(.caption)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.white.opacity(0.8))
                                 }
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.white.opacity(0.8))
                             }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 16)
+                            .background(
+                                ZStack {
+                                    RoundedRectangle()
+                                        .fill(.ultraThinMaterial)
+                                
+                                    RoundedRectangle()
+                                        .fill(quote.categories[0].gradient)
+                                    
+                                    RoundedRectangle()
+                                        .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                                }
+                            )
+                            .cornerRadius(12)
+                            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
                         }
                     }
                 }
