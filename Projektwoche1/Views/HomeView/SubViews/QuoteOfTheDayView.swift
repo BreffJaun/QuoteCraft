@@ -74,8 +74,8 @@ struct QuoteOfTheDayView: View {
                     .font(.caption.weight(.semibold))
                     .foregroundColor(.white.opacity(0.7))
                 HStack {
-                    ForEach(currentQuote.categoriesRaw) { curCatRaw in
-                        Text(curCatRaw)
+                    ForEach(currentQuote.categories, id: \.self) { category in
+                        Text(category.rawValue)
                             .font(.caption.weight(.semibold))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
@@ -85,7 +85,7 @@ struct QuoteOfTheDayView: View {
                                         .fill(.ultraThinMaterial)
                                 
                                     Capsule()
-                                        .fill(currentQuote.categories[0].gradient)
+                                        .fill(category.gradient)
                                     
                                     Capsule()
                                         .stroke(Color.white.opacity(0.25), lineWidth: 1)
