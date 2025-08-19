@@ -1,5 +1,5 @@
 //
-//  SuitableQuotesView.swift
+//  MatchingQuotesView.swift
 //  Projektwoche1
 //
 //  Created by Jeff Braun on 18.08.25.
@@ -15,25 +15,20 @@ struct MatchingQuotesView: View {
     
     @AppStorage("currentUserId") private var currentUserId: String?
     
-    @State private var currentUser: User = User(id: UUID(), username: "Unknown")
+    @State private var currentUser: User?
     
     var matchingQuotes: [Quote] {
-        (quotes as [Quote])
-            .filter { quote in
+        guard let currentUser else { return [] }
+        return quotes.filter { quote in
             !quote.categories.isEmpty &&
-            quote.categories.contains(where: {currentUser.favCategories.contains($0)})
+            quote.categories.contains(where: { currentUser.favCategories.contains($0) })
         }
         .sorted { quote1, quote2 in
-            let match1 = quote1.categories.filter {
-                currentUser.favCategories.contains($0)
-            }.count
-            let match2 = quote2.categories.filter {
-                currentUser.favCategories.contains($0)
-            }.count
+            let match1 = quote1.categories.filter { currentUser.favCategories.contains($0) }.count
+            let match2 = quote2.categories.filter { currentUser.favCategories.contains($0) }.count
             return match1 > match2
         }
     }
-    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -41,26 +36,32 @@ struct MatchingQuotesView: View {
                 .font(.title2.weight(.semibold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            if matchingQuotes.isEmpty {
-                HStack {
-                    Text("No matching Quotes found.")
-                    Spacer()
-                    Text(currentUser.username)
-                }
-            } else {
-                ForEach(matchingQuotes, id: \.id) { (quote: Quote) in
-                    let matchingCount = quote.categories.filter {
-                        currentUser.favCategories.contains($0)
-                    }.count
-                    NavigationLink(destination: QuoteDetailView(quote: quote)) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(quote.title)
-                                Text("\(matchingCount) machting Categories out of \(quote.categories.count)")
+            
+            if let currentUser = currentUser {
+                if matchingQuotes.isEmpty {
+                    HStack {
+                        Text("No matching Quotes found.")
+                        Spacer()
+                        Text(currentUser.username)
+                    }
+                } else {
+                    ForEach(matchingQuotes, id: \.id) { quote in
+                        let matchingCount = quote.categories.filter { currentUser.favCategories.contains($0) }.count
+                        NavigationLink(destination: QuoteDetailView(quote: quote)) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(quote.title)
+                                    Text("\(matchingCount) matching Categories out of \(quote.categories.count)")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
                             }
                         }
                     }
                 }
+            } else {
+                Text("Loading user...")
+                    .foregroundColor(.gray)
             }
         }
         .padding()
@@ -78,16 +79,18 @@ struct MatchingQuotesView: View {
         )
         .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
         .onAppear {
-            if currentUser.username == "Unknown" {
-                getCurrentUser()
-            }
+            loadCurrentUser()
         }
     }
-    private func getCurrentUser() {
-        if let currentUserId,
-           let uuid = UUID(uuidString: currentUserId),
+    
+    private func loadCurrentUser() {
+        if let currentUserId, let uuid = UUID(uuidString: currentUserId),
            let foundUser = users.first(where: { $0.id == uuid }) {
             currentUser = foundUser
+        } else if let firstUser = users.first {
+            // Kein User-ID gesetzt → ersten User nehmen
+            currentUser = firstUser
+            currentUserId = firstUser.id.uuidString
         }
     }
 }
@@ -95,3 +98,13 @@ struct MatchingQuotesView: View {
 #Preview {
     MatchingQuotesView()
 }
+
+
+
+//private func loadCurrentUser() {
+//    if let currentUserId,
+//       let uuid = UUID(uuidString: currentUserId),
+//       let foundUser = users.first(where: { $0.id == uuid }) {
+//        currentUser = foundUser
+//    }
+//}

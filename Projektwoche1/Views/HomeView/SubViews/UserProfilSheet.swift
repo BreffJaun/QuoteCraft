@@ -61,7 +61,7 @@ struct UserProfilSheet: View {
                     )
                     context.insert(newUser)
                     currentUserId = newUser.id.uuidString
-                   // currentUserId = users[0].id.uuidString
+//                    currentUserId = users[0].id.uuidString
                     dismiss()
                 } label: {
                     Text("safe")

@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
+    @Environment(\.modelContext) private var context
+    
     @Query private var quotes: [Quote]
     @Query private var users: [User]
     
@@ -16,6 +18,7 @@ struct HomeView: View {
     
     @State private var showUserProfileSheet: Bool = false
     @State private var showAddQuoteSheet: Bool = false
+    
     
     var body: some View {
         NavigationStack {
@@ -48,7 +51,20 @@ struct HomeView: View {
             .sheet(isPresented: $showUserProfileSheet) {
                 UserProfilSheet()
             }
-           
+            .onAppear {
+                if currentUserId == nil {
+                    if let firstUser = users.first {
+                        // Es gibt bereits User → einfach die ID des ersten Users setzen
+                        currentUserId = firstUser.id.uuidString
+                    } else {
+                        // Kein User vorhanden → Test-User erstellen
+                        let testUser = User(id: UUID(), username: "TestUser", favCategories: [.miscellaneous, .movie, .series])
+                        context.insert(testUser)
+                        currentUserId = testUser.id.uuidString
+                    }
+                }
+            }
+
         }
     }
 }
