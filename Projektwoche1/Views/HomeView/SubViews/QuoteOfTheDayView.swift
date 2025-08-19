@@ -65,9 +65,19 @@ struct QuoteOfTheDayView: View {
                         .truncationMode(.tail)
                 }
                 
-               
+                Spacer()
                 
-             
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Created by")
+                        .font(.caption.weight(.semibold))
+                        .foregroundColor(.white.opacity(0.7))
+                    Text(currentQuote.createdBy.username)
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                }
+                
             }
             VStack(alignment: .leading, spacing: 4) {
                 Text("Category")
@@ -96,6 +106,8 @@ struct QuoteOfTheDayView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
             Button {
                 showRandomQuote()
             } label: {
