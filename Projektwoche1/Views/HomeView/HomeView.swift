@@ -42,6 +42,9 @@ struct HomeView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showUserProfileSheet) {
+                UserProfilSheet()
+            }
         }
     }
 }

@@ -6,14 +6,30 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MatchingQuotesView: View {
+    
+    var matchingQuotes: [Quote] = []
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("Matching Quotes")
                 .font(.title2.weight(.semibold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            if matchingQuotes.isEmpty {
+                HStack {
+                    Text("No matching Quotes found.")
+                    Spacer()
+                }
+            } else {
+                ForEach(matchingQuotes) { quote in
+//                    var matchingCount = quote.categories.filter {
+//
+//                    }
+                }
+            }
         }
         .padding()
         .background(
