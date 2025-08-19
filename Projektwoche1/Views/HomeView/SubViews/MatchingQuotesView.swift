@@ -10,7 +10,14 @@ import SwiftData
 
 struct MatchingQuotesView: View {
     
+    @Query private var users: [User]
+    
+    @AppStorage("currentUserId") private var currentUserId: String?
+    
+    @State private var currentUser: User = User(id: UUID(), username: "Unknown")
+    
     var matchingQuotes: [Quote] = []
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -45,6 +52,18 @@ struct MatchingQuotesView: View {
                 .stroke(Color.primary.opacity(0.15), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
+        .onAppear {
+            if currentUser.username == "Unknown" {
+                getCurrentUser()
+            }
+        }
+    }
+    private func getCurrentUser() {
+        if let currentUserId,
+           let uuid = UUID(uuidString: currentUserId),
+           let foundUser = users.first(where: { $0.id == uuid }) {
+            currentUser = foundUser
+        }
     }
 }
 
