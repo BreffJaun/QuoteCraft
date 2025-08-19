@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 class User {
-    var id: UUID = UUID()
+    @Attribute(.unique) var id: UUID = UUID()
     var username: String
     var favCategoryRaw: [String] = []
     var favCategories: [Category] {
