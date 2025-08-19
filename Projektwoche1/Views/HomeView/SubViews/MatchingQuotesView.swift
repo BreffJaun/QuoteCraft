@@ -64,17 +64,17 @@ struct MatchingQuotesView: View {
                             .padding(.vertical, 16)
                             .background(
                                 ZStack {
-                                    RoundedRectangle()
+                                    RoundedRectangle(cornerRadius: 12)
                                         .fill(.ultraThinMaterial)
                                 
-                                    RoundedRectangle()
+                                    RoundedRectangle(cornerRadius: 12)
                                         .fill(quote.categories[0].gradient)
                                     
-                                    RoundedRectangle()
+                                    RoundedRectangle(cornerRadius: 12)
                                         .stroke(Color.white.opacity(0.25), lineWidth: 1)
                                 }
                             )
-                            .cornerRadius(12)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                             .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
                         }
                     }
