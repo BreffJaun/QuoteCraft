@@ -11,12 +11,28 @@ import SwiftData
 struct MatchingQuotesView: View {
     
     @Query private var users: [User]
+    @Query private var quotes: [Quote]
     
     @AppStorage("currentUserId") private var currentUserId: String?
     
     @State private var currentUser: User = User(id: UUID(), username: "Unknown")
     
-    var matchingQuotes: [Quote] = []
+    var matchingQuotes: [Quote] {
+        quotes
+            .filter { quote in
+            !quote.categories.isEmpty &&
+            quote.categories.contains(where: {currentUser.favCategories.contains($0)})
+        }
+        .sorted { quote1, quote2 in
+            let match1 = quote1.categories.filter {
+                currentUser.favCategories.contains($0)
+            }.count
+            let match2 = quote2.categories.filter {
+                currentUser.favCategories.contains($0)
+            }.count
+            return match1 > match2
+        }
+    }
     
     
     var body: some View {
@@ -32,9 +48,16 @@ struct MatchingQuotesView: View {
                 }
             } else {
                 ForEach(matchingQuotes) { quote in
-//                    var matchingCount = quote.categories.filter {
-//
-//                    }
+                    var matchingCount = quote.categories.filter {
+                        currentUser.favCategories.contains($0)
+                    }.count
+                    NavigationLink(destination: QuoteDetailView(quote: quote)) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(quote.title)
+                            }
+                        }
+                    }
                 }
             }
         }
