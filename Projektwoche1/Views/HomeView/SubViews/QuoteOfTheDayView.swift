@@ -16,7 +16,7 @@ struct QuoteOfTheDayView: View {
         authorName: "Unknown",
         title: "No title",
         quote: "No quote",
-        category: .miscellaneous,
+        categories: [.miscellaneous],
         createdBy: User(id: UUID(), username: "Unknown")
     )
     
@@ -65,32 +65,37 @@ struct QuoteOfTheDayView: View {
                         .truncationMode(.tail)
                 }
                 
-                Spacer()
+               
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Category")
-                        .font(.caption.weight(.semibold))
-                        .foregroundColor(.white.opacity(0.7))
-                    Text(currentQuote.categoryRaw)
-                        .font(.caption.weight(.semibold))
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(
-                            ZStack {
-                                Capsule()
-                                    .fill(.ultraThinMaterial)
-                            
-                                Capsule()
-                                    .fill(currentQuote.category.gradient)
+             
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Category")
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.white.opacity(0.7))
+                HStack {
+                    ForEach(currentQuote.categoriesRaw) { curCatRaw in
+                        Text(curCatRaw)
+                            .font(.caption.weight(.semibold))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(
+                                ZStack {
+                                    Capsule()
+                                        .fill(.ultraThinMaterial)
                                 
-                                Capsule()
-                                    .stroke(Color.white.opacity(0.25), lineWidth: 1)
-                            }
-                        )
-                        .foregroundColor(.white)
+                                    Capsule()
+                                        .fill(currentQuote.categories[0].gradient)
+                                    
+                                    Capsule()
+                                        .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                                }
+                            )
+                            .foregroundColor(.white)
+
+                    }
                 }
             }
-            
             Button {
                 showRandomQuote()
             } label: {

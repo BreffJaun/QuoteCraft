@@ -22,7 +22,13 @@ class Quote {
     
     @Relationship var createdBy: User
     
-    init(id: UUID, authorName: String, title: String, quote: String, categories: Category, createdBy: User) {
+    init(id: UUID,
+         authorName: String,
+         title: String,
+         quote: String,
+         categories: [Category] = [],
+         createdBy: User
+    ){
         self.id = id
         self.authorName = authorName
         self.title = title
