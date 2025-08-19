@@ -41,9 +41,9 @@
 enum Category: String, CaseIterable {
     case movie        // Zitate aus Filmen
     case series       // Zitate aus Serien
-    case literature   // Zitate aus Büchern / Gedichten
+    case literature   // Zitate aus Büchern etc.
     case music        // Songtexte / Songzitate
-    case famousPeople // Zitate von realen Persönlichkeiten (z.B. Albert Einstein)
+    case famousPeople // Zitate von realen Persönlichkeiten
     case games        // Zitate aus Videospielen
     case miscellaneous // Sonstige / nicht klassifizierbare Zitate
 }
