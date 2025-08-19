@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUICore
 
-
 enum Category: String, CaseIterable, Identifiable {
     case movie = "Movie"
     case series = "Series"
@@ -17,6 +16,12 @@ enum Category: String, CaseIterable, Identifiable {
     case famousPeople = "Famous People"
     case games = "Games"
     case miscellaneous = "Miscellaneous"
+    
+    case funny = "Funny"
+    case philosophy = "Philosophy"
+    case science = "Science"
+    case history = "History"
+    case motivation = "Motivation"
     
     var id: String { rawValue }
     
@@ -29,6 +34,12 @@ enum Category: String, CaseIterable, Identifiable {
         case .famousPeople: return .pink
         case .games: return .green
         case .miscellaneous: return .gray
+            
+        case .funny: return .yellow
+        case .philosophy: return .brown
+        case .science: return .teal
+        case .history: return .indigo
+        case .motivation: return .mint
         }
     }
     
@@ -48,6 +59,17 @@ enum Category: String, CaseIterable, Identifiable {
             return LinearGradient(colors: [.green, .yellow], startPoint: .topLeading, endPoint: .bottomTrailing)
         case .miscellaneous:
             return LinearGradient(colors: [.gray, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+            
+        case .funny:
+            return LinearGradient(colors: [.yellow, .orange], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .philosophy:
+            return LinearGradient(colors: [.brown, .orange], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .science:
+            return LinearGradient(colors: [.teal, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .history:
+            return LinearGradient(colors: [.indigo, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .motivation:
+            return LinearGradient(colors: [.mint, .green], startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
 }

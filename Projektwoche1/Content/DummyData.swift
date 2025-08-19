@@ -1,5 +1,5 @@
 //
-//  DummData.swift
+//  DummyData.swift
 //  Projektwoche1
 //
 //  Created by Jeff Braun on 18.08.25.
@@ -7,32 +7,33 @@
 
 import Foundation
 
+// Dummy Users
 let dummyUsers: [User] = [
     User(
         id: UUID(),
         username: "Jeff",
-        favCategories: [.movie, .music]
+        favCategories: [.movie, .music, .funny]
     ),
     User(
         id: UUID(),
         username: "Romina",
-        favCategories: [.literature, .famousPeople]
+        favCategories: [.literature, .famousPeople, .philosophy]
     ),
     User(
         id: UUID(),
         username: "Oliver",
-        favCategories: [.series, .games]
+        favCategories: [.series, .games, .motivation]
     )
 ]
 
-
+// Dummy Quotes
 let dummyQuotes: [Quote] = [
     Quote(
         id: UUID(),
         authorName: "Albert Einstein",
         title: "Relativity",
         quote: "Time is relative.",
-        category: .literature,
+        categories: [.literature, .science, .philosophy],
         createdBy: dummyUsers[1] // Romina
     ),
     Quote(
@@ -40,7 +41,7 @@ let dummyQuotes: [Quote] = [
         authorName: "Yoda",
         title: "Star Wars",
         quote: "Do. Or do not. There is no try.",
-        category: .movie,
+        categories: [.movie, .motivation, .philosophy],
         createdBy: dummyUsers[0] // Jeff
     ),
     Quote(
@@ -48,7 +49,7 @@ let dummyQuotes: [Quote] = [
         authorName: "Geralt of Rivia",
         title: "The Witcher 3",
         quote: "Evil is evil. Lesser, greater, middling… makes no difference.",
-        category: .games,
+        categories: [.games, .philosophy],
         createdBy: dummyUsers[2] // Oliver
     ),
     Quote(
@@ -56,7 +57,7 @@ let dummyQuotes: [Quote] = [
         authorName: "Michael Scott",
         title: "The Office",
         quote: "I am Beyoncé, always.",
-        category: .series,
+        categories: [.series, .funny],
         createdBy: dummyUsers[2] // Oliver
     ),
     Quote(
@@ -64,7 +65,7 @@ let dummyQuotes: [Quote] = [
         authorName: "Freddie Mercury",
         title: "Queen",
         quote: "I won’t be a rock star. I will be a legend.",
-        category: .music,
+        categories: [.music, .famousPeople, .motivation],
         createdBy: dummyUsers[0] // Jeff
     )
 ]

@@ -14,20 +14,26 @@ class Quote {
     var authorName: String
     var title: String
     var quote: String
-    var categoryRaw: String
-    var category: Category {
-        get { Category(rawValue: categoryRaw) ?? .miscellaneous }
-        set { categoryRaw = newValue.rawValue }
+    var categoriesRaw: [String] = []
+    var categories: [Category] {
+        get { categoriesRaw.compactMap { Category(rawValue: $0) } }
+        set { categoriesRaw = newValue.map { $0.rawValue } }
     }
     
     @Relationship var createdBy: User
     
-    init(id: UUID, authorName: String, title: String, quote: String, category: Category, createdBy: User) {
+    init(id: UUID,
+         authorName: String,
+         title: String,
+         quote: String,
+         categories: [Category] = [],
+         createdBy: User
+    ){
         self.id = id
         self.authorName = authorName
         self.title = title
         self.quote = quote
-        self.categoryRaw = category.rawValue
+        self.categoriesRaw = categories.map { $0.rawValue }
         self.createdBy = createdBy
     }
 }

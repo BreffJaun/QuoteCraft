@@ -20,7 +20,7 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     QuoteOfTheDayView()
                     Divider()
-                    SuitableQuotesView()
+                    MatchingQuotesView()
                 }
                 .padding()
             }
