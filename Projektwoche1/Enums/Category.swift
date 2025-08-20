@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUICore
 
-enum Category: String, CaseIterable, Identifiable {
+enum Category: String, CaseIterable, Identifiable, Codable {
     case movie = "Movie"
     case series = "Series"
     case literature = "Literature"

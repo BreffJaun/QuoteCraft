@@ -9,10 +9,16 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
+    @Environment(\.modelContext) private var context
+    
     @Query private var quotes: [Quote]
+    @Query private var users: [User]
+    
+    @AppStorage("currentUserId") private var currentUserId: String?
     
     @State private var showUserProfileSheet: Bool = false
     @State private var showAddQuoteSheet: Bool = false
+    
     
     var body: some View {
         NavigationStack {
@@ -20,6 +26,8 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     QuoteOfTheDayView()
                     Divider()
+                        .frame(height: 0.5)
+                        .background(Color.white)
                     MatchingQuotesView()
                 }
                 .padding()
@@ -31,6 +39,7 @@ struct HomeView: View {
                         showAddQuoteSheet.toggle()
                     } label: {
                         Image(systemName: "plus.bubble")
+                            .foregroundColor(Color.pinkAccent)
                     }
                 }
                 
@@ -39,9 +48,37 @@ struct HomeView: View {
                         showUserProfileSheet.toggle()
                     } label: {
                         Image(systemName: "person.crop.circle")
+                            .foregroundColor(Color.pinkAccent)
                     }
                 }
             }
+            .sheet(isPresented: $showUserProfileSheet) {
+                UserProfilSheet()
+            }
+            .onAppear {
+                if currentUserId == nil {
+                    if let firstUser = users.first {
+                        // Es gibt bereits User → einfach die ID des ersten Users setzen
+                        currentUserId = firstUser.id.uuidString
+                    } else {
+                        // Kein User vorhanden → Test-User erstellen
+                        let testUser = User(id: UUID(), username: "TestUser", favCategories: [.miscellaneous, .movie, .series])
+                        context.insert(testUser)
+                        currentUserId = testUser.id.uuidString
+                    }
+                }
+            }
+            .background(
+                LinearGradient(
+                    colors: [
+                        Color("HomeGradientStart"),
+                        Color("HomeGradientMiddle"),
+                        Color("HomeGradientEnd")
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
         }
     }
 }

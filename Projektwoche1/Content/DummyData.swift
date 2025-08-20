@@ -12,7 +12,7 @@ let dummyUsers: [User] = [
     User(
         id: UUID(),
         username: "Jeff",
-        favCategories: [.movie, .music, .funny]
+        favCategories: [.movie, .music, .funny, .series, .history]
     ),
     User(
         id: UUID(),
