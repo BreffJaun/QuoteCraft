@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 enum Category: String, CaseIterable, Identifiable, Codable {
     case movie = "Movie"
@@ -16,12 +16,17 @@ enum Category: String, CaseIterable, Identifiable, Codable {
     case famousPeople = "Famous People"
     case games = "Games"
     case miscellaneous = "Miscellaneous"
-    
+        
     case funny = "Funny"
     case philosophy = "Philosophy"
     case science = "Science"
     case history = "History"
     case motivation = "Motivation"
+    case art = "Art"
+    case technology = "Technology"
+    case fantasy = "Fantasy"
+    case scienceFiction = "Science Fiction"
+    case ellipsis = "Ellipsis"
     
     var id: String { rawValue }
     
@@ -40,6 +45,11 @@ enum Category: String, CaseIterable, Identifiable, Codable {
         case .science: return .teal
         case .history: return .indigo
         case .motivation: return .mint
+        case .art: return .cyan
+        case .technology: return .primary
+        case .fantasy: return .pink
+        case .scienceFiction: return .purple
+        case .ellipsis: return .black
         }
     }
     
@@ -70,6 +80,17 @@ enum Category: String, CaseIterable, Identifiable, Codable {
             return LinearGradient(colors: [.indigo, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
         case .motivation:
             return LinearGradient(colors: [.mint, .green], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .art:
+            return LinearGradient(colors: [.cyan, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .technology:
+            return LinearGradient(colors: [.gray, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .fantasy:
+            return LinearGradient(colors: [.pink, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .scienceFiction:
+            return LinearGradient(colors: [.purple, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+            
+        case .ellipsis:
+            return LinearGradient(colors: [.black, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
 }

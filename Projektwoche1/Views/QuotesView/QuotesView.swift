@@ -8,7 +8,6 @@
 import SwiftUI
 import SwiftData
 
-
 struct QuotesView: View {
     @Environment(\.modelContext) private var context
     @Query private var quotes: [Quote]
@@ -19,40 +18,79 @@ struct QuotesView: View {
     @State private var showAddQuoteSheet: Bool = false
     @State private var searchString: String = ""
     @State private var currSortOrder: SortOrder = .title
+    
+    // Picker Style 😎
+    init() {
+        let pinkAccent = UIColor(named: "PinkAccent")!
+        
+        // Aktives Segment: Hintergrund pink, Text weiß
+        UISegmentedControl.appearance().selectedSegmentTintColor = pinkAccent
+        UISegmentedControl.appearance().setTitleTextAttributes(
+            [.foregroundColor: UIColor.white],
+            for: .selected
+        )
+        
+        // Inaktive Segmente: Text pink
+        UISegmentedControl.appearance().setTitleTextAttributes(
+            [.foregroundColor: pinkAccent],
+            for: .normal
+        )
+    }
+    
     var body: some View {
         NavigationStack {
-            VStack{
-                TextField("search for quotes...", text: $searchString)
-                    .padding(12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .fill(Color(.systemBackground))
-                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
-                    .padding(.horizontal, 8)
-            }
-            HStack {
-                Picker("Sort", selection: $currSortOrder) {
-                    ForEach(SortOrder.allCases) { order in
-                        Text(order.title)
+            VStack(spacing: 16) {
+                
+                // 🔍 Search Bar
+                VStack(alignment: .leading, spacing: 8) {
+                    
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.secondary)
+                        
+                        ZStack(alignment: .trailing) {
+                            TextField("Search for quotes...", text: $searchString)
+                                .textInputAutocapitalization(.never)
+                                .disableAutocorrection(true)
+                                .padding(.trailing, 24) // Platz für den X-Button
+
+                            if !searchString.isEmpty {
+                                Button(action: {
+                                    searchString = ""
+                                }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding(.trailing, 4)
+                            }
+                        }
                     }
+                    .padding(12)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+
                 }
-                Spacer()
-            }
-            ScrollView {
-//                ForEach(filtertQuotes()) { quote in
-//                    NavigationLink{
-//                        QuoteDetailView(quote: quote)
-//                    } label: {
-//                        QuoteListItemView(quote: quote)
-//                    }
-//                }
-//                QuoteListView(sortOrder: currSortOrder.sortDescriptors,searchString: searchString)
-//                    .animation(.default, value: currSortOrder)
+                .padding(.horizontal)
+                
+                // 🔽 Sort Picker
+                HStack {
+                    Picker("Sort", selection: $currSortOrder) {
+                        ForEach(SortOrder.allCases) { order in
+                            Text(order.title)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                .padding(.horizontal)
+                
+                // 📜 Quotes List
+                QuoteListView(
+                    sortOrder: currSortOrder.sortDescriptors,
+                    searchString: searchString
+                )
+                .animation(.default, value: currSortOrder)
+                .padding(.horizontal)
+                .padding(.top, 4)
             }
             .navigationTitle("Quotes")
             .toolbar {
@@ -60,16 +98,15 @@ struct QuotesView: View {
                     Button {
                         showAddQuoteSheet.toggle()
                     } label: {
-                        Image(systemName: "plus.bubble")
-                            .foregroundColor(Color.pinkAccent)
+                        Image(systemName: "plus.bubble.fill")
+                            .font(.title3.weight(.semibold))
+                            .foregroundColor(Color.pinkAccent) // 🔥 eure Accent-Farbe
                     }
                 }
-                
             }
             .sheet(isPresented: $showAddQuoteSheet) {
                 AddQuoteSheet()
             }
-            .frame(maxWidth: .infinity)
             .background(
                 LinearGradient(
                     colors: [
@@ -80,31 +117,12 @@ struct QuotesView: View {
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
+                .ignoresSafeArea()
             )
-            
-            
-            
-            
         }
-        
     }
-//    private func filtertQuotes() -> [Quote] {
-//        if searchString.isEmpty {
-//            return quotes
-//        } else {
-//            let descriptor = FetchDescriptor<Quote>(
-//                predicate: #Predicate {
-//                    $0.title.localizedStandardContains(searchString)
-//                    || $0.quote.localizedStandardContains(searchString)
-//                    || $0.authorName.localizedStandardContains(searchString)
-//                    || $0.createdBy.username.localizedStandardContains(searchString)
-//                },
-//                sortBy: [SortDescriptor(\Quote.title)]
-//            )
-//        return try! context.fetch(descriptor)
-//        }
-//    }
 }
+
 
 
 //#Preview {

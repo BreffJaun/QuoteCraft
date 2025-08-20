@@ -22,7 +22,7 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+//            ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
                     QuoteOfTheDayView()
                     Divider()
@@ -31,14 +31,14 @@ struct HomeView: View {
                     MatchingQuotesView()
                 }
                 .padding()
-            }
+//            }
             .navigationTitle("Home")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showAddQuoteSheet.toggle()
                     } label: {
-                        Image(systemName: "plus.bubble")
+                        Image(systemName: "plus.bubble.fill")
                             .foregroundColor(Color.pinkAccent)
                     }
                 }
@@ -61,7 +61,7 @@ struct HomeView: View {
                         // Es gibt bereits User → einfach die ID des ersten Users setzen
                         currentUserId = firstUser.id.uuidString
                     } else {
-                        // Kein User vorhanden → Test-User erstellen
+                        // Wen ken User vorhanden → Test-User erstellen
                         let testUser = User(id: UUID(), username: "TestUser", favCategories: [.miscellaneous, .movie, .series])
                         context.insert(testUser)
                         currentUserId = testUser.id.uuidString

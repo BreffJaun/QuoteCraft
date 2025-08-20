@@ -31,55 +31,57 @@ struct MatchingQuotesView: View {
     }
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 12) {
             Text("Matching Quotes")
                 .font(.title2.weight(.semibold))
                 .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
-            if let currentUser = currentUser {
-                if matchingQuotes.isEmpty {
-                    HStack {
-                        Text("No matching Quotes found.")
-                        Spacer()
-                    }
-                } else {
-                    ForEach(matchingQuotes, id: \.id) { quote in
-                        let matchingCount = quote.categories.filter { currentUser.favCategories.contains($0) }.count
-                        
-                        NavigationLink(destination: QuoteDetailView(quote: quote)) {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(quote.title)
-                                        .font(.subheadline)
-                                        .foregroundColor(.primary)
-                                    Text("\(matchingCount) matching Categories out of \(quote.categories.count)")
-                                        .font(.caption)
+            ScrollView {
+                if let currentUser = currentUser {
+                    if matchingQuotes.isEmpty {
+                        HStack {
+                            Text("No matching Quotes found.")
+                            Spacer()
+                        }
+                    } else {
+                        ForEach(matchingQuotes, id: \.id) { quote in
+                            let matchingCount = quote.categories.filter { currentUser.favCategories.contains($0) }.count
+                            
+                            NavigationLink(destination: QuoteDetailView(quote: quote)) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(quote.title)
+                                            .font(.subheadline)
+                                            .foregroundColor(.primary)
+                                        Text("\(matchingCount) matching Categories out of \(quote.categories.count)")
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
                                         .foregroundColor(.secondary)
                                 }
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.secondary)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 16)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                        .fill(.ultraThinMaterial) // Frosted Glass Effekt
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                        .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                                )
+                                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                                .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
                             }
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 16)
-                            .background(
-                                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                    .fill(.ultraThinMaterial) // Frosted Glass Effekt
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                    .stroke(Color.white.opacity(0.25), lineWidth: 1)
-                            )
-                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
                         }
+                        
                     }
-
+                } else {
+                    Text("Loading user...")
+                        .foregroundColor(.gray)
                 }
-            } else {
-                Text("Loading user...")
-                    .foregroundColor(.gray)
             }
         }
         .padding()

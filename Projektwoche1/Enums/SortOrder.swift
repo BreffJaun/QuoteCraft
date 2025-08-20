@@ -26,9 +26,9 @@ enum SortOrder: Identifiable, CaseIterable {
     var sortDescriptors: [SortDescriptor<Quote>] {
         switch self {
         case .title: return  [SortDescriptor(\Quote.title)]
-        case .authorName: return [SortDescriptor(\Quote.authorName, order: .reverse)]
-        case .createdBy: return [SortDescriptor(\Quote.createdBy.username, order: .reverse)]
-        case .quote: return [SortDescriptor(\Quote.quote, order: .reverse)]
+        case .authorName: return [SortDescriptor(\Quote.authorName, order: .forward)]
+        case .createdBy: return [SortDescriptor(\Quote.createdBy.username, order: .forward)]
+        case .quote: return [SortDescriptor(\Quote.quote, order: .forward)]
         }
     }
 }
