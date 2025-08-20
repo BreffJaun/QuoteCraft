@@ -8,7 +8,7 @@
 import Foundation
 
 enum SortOrder: Identifiable, CaseIterable {
-    case title, titleDescending, newest
+    case title,authorName, createdBy, quote
     
     var id: Self {
         self
@@ -17,16 +17,18 @@ enum SortOrder: Identifiable, CaseIterable {
     var title: String {
         switch self {
             case .title: return "Title"
-            case .titleDescending: return "Title desc."
-            case .newest: return "Newest"
+            case .authorName: return "Author Name"
+            case .createdBy: return "Created By"
+            case .quote: return "Quote"
         }
     }
     
-    var sortDescriptors: [SortDescriptor<Note>] {
+    var sortDescriptors: [SortDescriptor<Quote>] {
         switch self {
-        case .title: return  [SortDescriptor(\Note.title)]
-        case .titleDescending: return [SortDescriptor(\Note.title, order: .reverse)]
-        case .newest: return [SortDescriptor(\Note.time, order: .reverse)]
+        case .title: return  [SortDescriptor(\Quote.title)]
+        case .authorName: return [SortDescriptor(\Quote.authorName, order: .reverse)]
+        case .createdBy: return [SortDescriptor(\Quote.createdBy.username, order: .reverse)]
+        case .quote: return [SortDescriptor(\Quote.quote, order: .reverse)]
         }
     }
 }

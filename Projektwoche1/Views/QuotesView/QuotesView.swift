@@ -18,6 +18,7 @@ struct QuotesView: View {
     
     @State private var showAddQuoteSheet: Bool = false
     @State private var searchString: String = ""
+    @State private var currSortOrder: SortOrder = .title
     var body: some View {
         NavigationStack {
             VStack{
@@ -34,15 +35,24 @@ struct QuotesView: View {
                     )
                     .padding(.horizontal, 8)
             }
-            ScrollView {
-                ForEach(filtertQuotes()) { quote in
-                    NavigationLink{
-                        QuoteDetailView(quote: quote)
-                    } label: {
-                        QuoteListItemView(quote: quote)
+            HStack {
+                Picker("Sort", selection: $currSortOrder) {
+                    ForEach(SortOrder.allCases) { order in
+                        Text(order.title)
                     }
                 }
-                
+                Spacer()
+            }
+            ScrollView {
+//                ForEach(filtertQuotes()) { quote in
+//                    NavigationLink{
+//                        QuoteDetailView(quote: quote)
+//                    } label: {
+//                        QuoteListItemView(quote: quote)
+//                    }
+//                }
+//                QuoteListView(sortOrder: currSortOrder.sortDescriptors,searchString: searchString)
+//                    .animation(.default, value: currSortOrder)
             }
             .navigationTitle("Quotes")
             .toolbar {
@@ -78,22 +88,22 @@ struct QuotesView: View {
         }
         
     }
-    private func filtertQuotes() -> [Quote] {
-        if searchString.isEmpty {
-            return quotes
-        } else {
-            let descriptor = FetchDescriptor<Quote>(
-                predicate: #Predicate {
-                    $0.title.localizedStandardContains(searchString)
-                    || $0.quote.localizedStandardContains(searchString)
-                    || $0.authorName.localizedStandardContains(searchString)
-                    || $0.createdBy.username.localizedStandardContains(searchString)
-                },
-                sortBy: [SortDescriptor(\Quote.title)]
-            )
-        return try! context.fetch(descriptor)
-        }
-    }
+//    private func filtertQuotes() -> [Quote] {
+//        if searchString.isEmpty {
+//            return quotes
+//        } else {
+//            let descriptor = FetchDescriptor<Quote>(
+//                predicate: #Predicate {
+//                    $0.title.localizedStandardContains(searchString)
+//                    || $0.quote.localizedStandardContains(searchString)
+//                    || $0.authorName.localizedStandardContains(searchString)
+//                    || $0.createdBy.username.localizedStandardContains(searchString)
+//                },
+//                sortBy: [SortDescriptor(\Quote.title)]
+//            )
+//        return try! context.fetch(descriptor)
+//        }
+//    }
 }
 
 
@@ -102,16 +112,9 @@ struct QuotesView: View {
 //}
 
 
-//HStack {
-//    Picker("Sort", selection: $currSortOrder) {
-//        ForEach(SortOrder.allCases) { order in
-//            Text(order.title)
-//        }
-//    }
-//    Spacer()
-//}
 
-//@State private var currSortOrder: SortOrder = .title
+
+
 
 
 
