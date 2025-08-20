@@ -7,11 +7,15 @@
 
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct TabBarView: View {
   
     
-    
+    init() {
+        UITabBar.appearance().tintColor = UIColor(named: "IconAccent")
+    }
+
     
     var body: some View {
         TabView {
@@ -31,8 +35,10 @@ struct TabBarView: View {
                 CategoriesView()
             }
         }
+        .tint(Color("PinkAccent"))
     }
 }
+    
 
 #Preview {
     TabBarView()

@@ -26,6 +26,8 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     QuoteOfTheDayView()
                     Divider()
+                        .frame(height: 0.5)
+                        .background(Color.white)
                     MatchingQuotesView()
                 }
                 .padding()
@@ -37,6 +39,7 @@ struct HomeView: View {
                         showAddQuoteSheet.toggle()
                     } label: {
                         Image(systemName: "plus.bubble")
+                            .foregroundColor(Color.pinkAccent)
                     }
                 }
                 
@@ -45,6 +48,7 @@ struct HomeView: View {
                         showUserProfileSheet.toggle()
                     } label: {
                         Image(systemName: "person.crop.circle")
+                            .foregroundColor(Color.pinkAccent)
                     }
                 }
             }
@@ -64,7 +68,17 @@ struct HomeView: View {
                     }
                 }
             }
-
+            .background(
+                LinearGradient(
+                    colors: [
+                        Color("HomeGradientStart"),
+                        Color("HomeGradientMiddle"),
+                        Color("HomeGradientEnd")
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
         }
     }
 }

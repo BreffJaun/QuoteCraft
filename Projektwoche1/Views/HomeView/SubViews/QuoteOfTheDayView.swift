@@ -84,7 +84,7 @@ struct QuoteOfTheDayView: View {
                     .font(.caption.weight(.semibold))
                     .foregroundColor(.white.opacity(0.7))
                 HStack {
-                    ForEach(currentQuote.categories, id: \.self) { category in
+                    FlowLayoutQOTD(data: currentQuote.categories, spacing: 8) { category in
                         Text(category.rawValue)
                             .font(.caption.weight(.semibold))
                             .padding(.horizontal, 12)
@@ -102,8 +102,8 @@ struct QuoteOfTheDayView: View {
                                 }
                             )
                             .foregroundColor(.white)
-
                     }
+
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

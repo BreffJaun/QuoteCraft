@@ -46,38 +46,36 @@ struct MatchingQuotesView: View {
                 } else {
                     ForEach(matchingQuotes, id: \.id) { quote in
                         let matchingCount = quote.categories.filter { currentUser.favCategories.contains($0) }.count
+                        
                         NavigationLink(destination: QuoteDetailView(quote: quote)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(quote.title)
                                         .font(.subheadline)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.primary)
                                     Text("\(matchingCount) matching Categories out of \(quote.categories.count)")
                                         .font(.caption)
-                                        .foregroundColor(.white.opacity(0.8))
+                                        .foregroundColor(.secondary)
                                 }
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.white.opacity(0.8))
+                                    .foregroundColor(.secondary)
                             }
                             .padding(.horizontal, 12)
                             .padding(.vertical, 16)
                             .background(
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(.ultraThinMaterial)
-                                
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(quote.categories[0].gradient)
-                                    
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(Color.white.opacity(0.25), lineWidth: 1)
-                                }
+                                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                    .fill(.ultraThinMaterial) // Frosted Glass Effekt
                             )
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                    .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
                         }
                     }
+
                 }
             } else {
                 Text("Loading user...")
