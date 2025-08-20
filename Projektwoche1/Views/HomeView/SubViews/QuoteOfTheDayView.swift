@@ -25,29 +25,29 @@ struct QuoteOfTheDayView: View {
             
             Text("Quote of the Day")
                 .font(.title2.weight(.semibold))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Text("“\(currentQuote.quote)”")
                 .font(.body.italic())
-                .foregroundColor(.white.opacity(0.9))
+                .foregroundColor(.primary)
                 .multilineTextAlignment(.leading)
                 .lineSpacing(4)
             
             Divider()
                 .frame(height: 1)
-                .background(Color.white.opacity(0.3))
-
+                .background(Color.primary.opacity(0.3))
+                .frame(height: 1)
             
             // Infos (Title, Author & Category-Tag in einer Zeile)
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Title")
                         .font(.caption.weight(.semibold))
-                        .foregroundColor(.white.opacity(0.7))
+                        .foregroundColor(.secondary)
                     Text(currentQuote.title)
                         .font(.subheadline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
@@ -57,10 +57,10 @@ struct QuoteOfTheDayView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Author")
                         .font(.caption.weight(.semibold))
-                        .foregroundColor(.white.opacity(0.7))
+                        .foregroundColor(.secondary)
                     Text(currentQuote.authorName)
                         .font(.subheadline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
@@ -70,10 +70,10 @@ struct QuoteOfTheDayView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Created by")
                         .font(.caption.weight(.semibold))
-                        .foregroundColor(.white.opacity(0.7))
+                        .foregroundColor(.secondary)
                     Text(currentQuote.createdBy.username)
                         .font(.subheadline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
@@ -82,7 +82,7 @@ struct QuoteOfTheDayView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Category")
                     .font(.caption.weight(.semibold))
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.secondary)
                 HStack {
                     FlowLayoutQOTD(data: currentQuote.categories, spacing: 8) { category in
                         Text(category.rawValue)
@@ -93,17 +93,16 @@ struct QuoteOfTheDayView: View {
                                 ZStack {
                                     Capsule()
                                         .fill(.ultraThinMaterial)
-                                
+                                    
                                     Capsule()
                                         .fill(category.gradient)
                                     
                                     Capsule()
-                                        .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                                        .stroke(Color.secondary.opacity(0.25), lineWidth: 1)
                                 }
                             )
-                            .foregroundColor(.white)
+                            .foregroundColor(.white) // bleibt weiß, da Badge
                     }
-
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

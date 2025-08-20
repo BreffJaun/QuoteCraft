@@ -26,7 +26,6 @@ struct UserProfilSheet: View {
             ScrollView {
                 VStack(spacing: 20) {
                     
-                    // Username Eingabe
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Username")
                             .font(.headline)
@@ -38,7 +37,6 @@ struct UserProfilSheet: View {
                     }
                     .padding(.horizontal)
                     
-                    // Kategorie Auswahl
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Favorite Categories")
                             .font(.headline)
@@ -97,7 +95,6 @@ struct UserProfilSheet: View {
                     }
                     .padding(.horizontal)
                     
-                    // Speichern Button
                     Button {
                         let newUser = User(
                             id: UUID(),

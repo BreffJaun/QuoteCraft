@@ -34,7 +34,7 @@ struct MatchingQuotesView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Matching Quotes")
                 .font(.title2.weight(.semibold))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             if let currentUser = currentUser {
