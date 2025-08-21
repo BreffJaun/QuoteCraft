@@ -22,6 +22,10 @@ struct QuoteDetailView: View {
     @State private var showDeleteAlert = false
     @State private var showEditSheet = false
     
+    // QUOTES SHAREN 😎
+    @State private var shareImage: UIImage?
+    @State private var showShareSheet = false
+    
     var quote: Quote
     
     var body: some View {
@@ -108,6 +112,18 @@ struct QuoteDetailView: View {
                             .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
                     }
                     
+                    Button {
+                        generateAndShareQuoteImage()
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.title2)
+                            .padding(12)
+                            .background(.ultraThinMaterial)
+                            .foregroundColor(.green)
+                            .clipShape(Circle())
+                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                    }
+                    
                     // Löschen (nur wenn createdBy == currentUser)
                     if currentUser?.id == quote.createdBy.id {
                         Button(role: .destructive) {
@@ -187,6 +203,11 @@ struct QuoteDetailView: View {
                 initialQuote: quote
             )
         }
+        .sheet(isPresented: $showShareSheet) {
+            if let image = shareImage {
+                ShareSheet(items: [image])
+            }
+        }
     }
     
     private func loadCurrentUser() {
@@ -213,6 +234,17 @@ struct QuoteDetailView: View {
             isFavorite = true
         }
         
+    }
+    
+    // MARK: - Share Function
+    private func generateAndShareQuoteImage() {
+        let renderer = ImageRenderer(content: QuoteShareView(quote: quote))
+        renderer.scale = 3.0 // Für hohe Qualität
+        
+        if let image = renderer.uiImage {
+            shareImage = image
+            showShareSheet = true
+        }
     }
 }
 
