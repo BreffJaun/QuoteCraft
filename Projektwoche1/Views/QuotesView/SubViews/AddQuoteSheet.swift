@@ -51,7 +51,6 @@ struct AddQuoteSheet: View {
                                     title = ""
                                 }) {
                                     Image(systemName: "xmark.circle.fill")
-                                    //                                        .foregroundColor(.secondary)
                                 }
                                 .padding(.trailing, 8)
                             }
@@ -111,7 +110,7 @@ struct AddQuoteSheet: View {
                             Image(systemName: "lock.fill")
                                 .padding(.trailing, 12)
                                 .foregroundColor(.gray.opacity(0.8))
-
+                            
                         }
                     }
                     .padding(.horizontal)
@@ -153,12 +152,11 @@ struct AddQuoteSheet: View {
                                     .font(.caption)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 6)
-//                                    .background(.ultraThinMaterial)
                                     .background(
                                         ZStack {
                                             Capsule()
                                                 .fill(.ultraThinMaterial)
-                                        
+                                            
                                             Capsule()
                                                 .fill(category.gradient)
                                             
@@ -176,6 +174,8 @@ struct AddQuoteSheet: View {
                     .padding(.horizontal)
                     
                     Button {
+                        guard let currentUser else { return }
+                        
                         let newQuote = Quote(
                             id: UUID(),
                             authorName: authorName,
@@ -201,15 +201,21 @@ struct AddQuoteSheet: View {
                             .shadow(radius: 4)
                     }
                     .disabled(
-                        authorName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
-                        title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
-                        quote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||selectedCategories.isEmpty
+                        authorName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        || title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        || quote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        || selectedCategories.isEmpty
+                        || currentUser == nil
                     )
                     .opacity(
-                        authorName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
-                        title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
-                        quote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||selectedCategories.isEmpty)
+                        (authorName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        || title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        || quote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                        || selectedCategories.isEmpty
+                        || currentUser == nil)
+                        ? 0.5 : 1.0 
                     )
+
                 }
             }
             .navigationTitle("Add New Quote")
