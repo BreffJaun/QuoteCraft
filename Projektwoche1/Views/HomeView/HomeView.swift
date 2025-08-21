@@ -22,16 +22,15 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-//            ScrollView {
-                VStack(alignment: .leading, spacing: 12) {
-                    QuoteOfTheDayView()
-                    Divider()
-                        .frame(height: 0.5)
-                        .background(Color.white)
-                    MatchingQuotesView()
-                }
-                .padding()
-//            }
+            
+            VStack(alignment: .leading, spacing: 12) {
+                QuoteOfTheDayView()
+                Divider()
+                    .frame(height: 0.5)
+                    .background(Color.white)
+                MatchingQuotesView()
+            }
+            .padding()
             .navigationTitle("Home")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -60,32 +59,32 @@ struct HomeView: View {
             }
             .onAppear {
                 // users => UNSORTED "QUANTITY" of Data
-//                if currentUserId == nil {
-//                    if let firstUser = users.first {
-//                        currentUserId = firstUser.id.uuidString
-//                    } else {
-//                        // Wen ken User vorhanden → Test-User erstellen
-//                        let testUser = User(id: UUID(), username: "TestUser", favCategories: [.miscellaneous, .movie, .series])
-//                        context.insert(testUser)
-//                        currentUserId = testUser.id.uuidString
-//                    }
-//                }
+                //                if currentUserId == nil {
+                //                    if let firstUser = users.first {
+                //                        currentUserId = firstUser.id.uuidString
+                //                    } else {
+                //                        // Wen ken User vorhanden → Test-User erstellen
+                //                        let testUser = User(id: UUID(), username: "TestUser", favCategories: [.miscellaneous, .movie, .series])
+                //                        context.insert(testUser)
+                //                        currentUserId = testUser.id.uuidString
+                //                    }
+                //                }
                 print("Alle User in DB:")
                 users.forEach { print($0.username) }
-                    
+                
                 if let oli = users.first(where: { $0.username == "Oliver" }) {
-                       print("Oliver gefunden ✅")
-                       currentUserId = oli.id.uuidString
-                   } else if let firstUser = users.first {
-                       print("Oliver nicht gefunden ❌, nehme \(firstUser.username)")
-                       currentUserId = firstUser.id.uuidString
-                   } else {
-                       print("Kein User vorhanden → TestUser wird erstellt")
-                       let testUser = User(id: UUID(), username: "TestUser", favCategories: [.miscellaneous, .movie, .series])
-                       context.insert(testUser)
-                       currentUserId = testUser.id.uuidString
-                   }
-
+                    print("Oliver gefunden ✅")
+                    currentUserId = oli.id.uuidString
+                } else if let firstUser = users.first {
+                    print("Oliver nicht gefunden ❌, nehme \(firstUser.username)")
+                    currentUserId = firstUser.id.uuidString
+                } else {
+                    print("Kein User vorhanden → TestUser wird erstellt")
+                    let testUser = User(id: UUID(), username: "TestUser", favCategories: [.miscellaneous, .movie, .series])
+                    context.insert(testUser)
+                    currentUserId = testUser.id.uuidString
+                }
+                
             }
             .background(
                 LinearGradient(
