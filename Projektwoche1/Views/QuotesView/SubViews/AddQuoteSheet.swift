@@ -122,7 +122,7 @@ struct AddQuoteSheet: View {
                             .foregroundColor(.secondary)
                         
                         Menu {
-                            ForEach(Category.allCases, id: \.rawValue) { category in
+                            ForEach(Category.allCases.filter { $0 != .ellipsis }, id: \.rawValue) { category in
                                 Button {
                                     if !selectedCategories.contains(category) {
                                         selectedCategories.insert(category)
