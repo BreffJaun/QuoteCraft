@@ -20,6 +20,7 @@ struct QuotesView: View {
     @State private var currSortOrder: SortOrder = .title
     
     // Picker Style 😎
+    //.https://stackoverflow.com/questions/57735761/how-to-change-selected-segment-color-in-swiftui-segmented-picker
     init() {
         let pinkAccent = UIColor(named: "PinkAccent")!
         
@@ -83,7 +84,6 @@ struct QuotesView: View {
                 }
                 .padding(.horizontal)
                 
-                // 📜 Quotes List
                 QuoteListView(
                     sortOrder: currSortOrder.sortDescriptors,
                     searchString: searchString
@@ -99,8 +99,7 @@ struct QuotesView: View {
                         showAddQuoteSheet.toggle()
                     } label: {
                         Image(systemName: "plus.bubble.fill")
-                            .font(.title3.weight(.semibold))
-                            .foregroundColor(Color.pinkAccent) // 🔥 eure Accent-Farbe
+                            .foregroundColor(Color.pinkAccent)
                     }
                 }
             }

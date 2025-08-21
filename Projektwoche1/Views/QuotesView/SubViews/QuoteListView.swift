@@ -50,10 +50,7 @@ struct QuoteListView: View {
                     }
                 }
             }
-        // STYLE ROMINA ? ? ?
         .padding()
-//        .padding(.vertical)
-//        .padding(.horizontal, 8)
         .background(
             LinearGradient(
                 colors: [Color.blue, Color.purple],
