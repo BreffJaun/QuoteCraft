@@ -52,13 +52,20 @@ struct QuoteListView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             List {
-                if quoteList.isEmpty {
+                if displayedQuotes.isEmpty {
                     VStack {
                         Spacer(minLength: 20)
-                        Text("No results found 😢")
-                            .foregroundColor(.secondary)
-                            .font(.headline)
-                            .multilineTextAlignment(.center)
+                        if whichQuoteList == .favQuotes {
+                            Text("No favorites found 🫠")
+                                .foregroundColor(.secondary)
+                                .font(.headline)
+                                .multilineTextAlignment(.center)
+                        } else {
+                            Text("No results found 😢")
+                                .foregroundColor(.secondary)
+                                .font(.headline)
+                                .multilineTextAlignment(.center)
+                        }
                         Spacer(minLength: 20)
                     }
                     .frame(maxWidth: .infinity)
