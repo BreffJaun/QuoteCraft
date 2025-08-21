@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct QuoteListView: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     
     @Query private var quoteList: [Quote]
@@ -17,6 +18,9 @@ struct QuoteListView: View {
     @AppStorage("currentUserId") private var currentUserId: String?
     
     @State private var currentUser: User?
+    @State private var quoteToDelete: Quote? = nil
+    @State private var showDeleteAlert = false
+    
     private var whichQuoteList: favQuotes
     private let sortOrder: [SortDescriptor<Quote>]
     private let searchString: String
@@ -103,8 +107,8 @@ struct QuoteListView: View {
                             if let currentUser {
                                 if currentUser.createdQuotes.contains(where: { $0.id == quote.id }) {
                                     Button(role: .destructive) {
-                                        context.delete(quote)
-
+                                        quoteToDelete = quote
+                                        showDeleteAlert = true
                                     } label: {
                                         Label("Delete", systemImage: "trash")
                                     }
@@ -120,7 +124,6 @@ struct QuoteListView: View {
                                     } else {
                                         currentUser.favQuotes.append(quote)
                                     }
-                                    //                                    try? context.save()
                                 } label: {
                                     Label(isFav ? "Unfavorite" : "Favorite", systemImage: isFav ? "star.fill" : "star")
                                 }
@@ -150,6 +153,15 @@ struct QuoteListView: View {
         .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
         .onAppear {
             loadCurrentUser()
+        }
+        .alert("Delete Quote?", isPresented: $showDeleteAlert, presenting: quoteToDelete) { quote in
+            Button("Delete", role: .destructive) {
+                context.delete(quote)
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: { quote in
+            Text("Do you really want to delete this quote?")
         }
     }
     

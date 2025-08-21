@@ -20,26 +20,6 @@ struct QuotesView: View {
     @State private var currSortOrder: SortOrder = .title
     @State private var whichQuoteList: favQuotes = .nonFavQuotes
     
-    
-    // Picker Style 😎
-    //.https://stackoverflow.com/questions/57735761/how-to-change-selected-segment-color-in-swiftui-segmented-picker
-    init() {
-        let pinkAccent = UIColor(named: "PinkAccent")!
-        
-        // Aktives Segment: Hintergrund pink, Text weiß
-        UISegmentedControl.appearance().selectedSegmentTintColor = pinkAccent
-        UISegmentedControl.appearance().setTitleTextAttributes(
-            [.foregroundColor: UIColor.white],
-            for: .selected
-        )
-        
-        // Inaktive Segmente: Text pink
-        UISegmentedControl.appearance().setTitleTextAttributes(
-            [.foregroundColor: pinkAccent],
-            for: .normal
-        )
-    }
-    
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
@@ -83,7 +63,7 @@ struct QuotesView: View {
                     .pickerStyle(.segmented)
                 }
                 .padding(.horizontal)
-                
+                            
 //                let animationDuration = min(0.8, max(0.3, Double(quotes.count) * 1.20))
                 QuoteListView(
                     whichQuoteListType: whichQuoteList,

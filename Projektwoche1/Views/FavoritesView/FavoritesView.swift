@@ -22,24 +22,7 @@ struct FavoritesView: View {
     @State private var whichQuoteList: favQuotes = .favQuotes
     
     
-    // Picker Style 😎
-    //.https://stackoverflow.com/questions/57735761/how-to-change-selected-segment-color-in-swiftui-segmented-picker
-    init() {
-        let pinkAccent = UIColor(named: "PinkAccent")!
-        
-        // Aktives Segment: Hintergrund pink, Text weiß
-        UISegmentedControl.appearance().selectedSegmentTintColor = pinkAccent
-        UISegmentedControl.appearance().setTitleTextAttributes(
-            [.foregroundColor: UIColor.white],
-            for: .selected
-        )
-        
-        // Inaktive Segmente: Text pink
-        UISegmentedControl.appearance().setTitleTextAttributes(
-            [.foregroundColor: pinkAccent],
-            for: .normal
-        )
-    }
+
     
     var body: some View {
         NavigationStack {

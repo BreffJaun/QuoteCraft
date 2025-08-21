@@ -12,10 +12,14 @@ struct QuoteDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     
+    @Query private var quotes: [Quote]
+    
     @AppStorage("currentUserId") private var currentUserId: String?
     
     @State private var isFavorite: Bool = false
     @State private var currentUser: User?
+    @State private var quoteToDelete: Quote? = nil
+    @State private var showDeleteAlert = false
     
     var quote: Quote
     
@@ -106,9 +110,10 @@ struct QuoteDetailView: View {
                     // Löschen (nur wenn createdBy == currentUser)
                     if currentUser?.id == quote.createdBy.id {
                         Button(role: .destructive) {
-                            context.delete(quote)
-//                            try? context.save()
-                            dismiss()
+//                            context.delete(quote)
+//                            dismiss()
+                            quoteToDelete = quote
+                            showDeleteAlert = true
                         } label: {
                             Image(systemName: "trash")
                                 .font(.title2)
@@ -153,6 +158,15 @@ struct QuoteDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             loadCurrentUser()
+        }
+        .alert("Delete Quote?", isPresented: $showDeleteAlert, presenting: quoteToDelete) { quote in
+            Button("Delete", role: .destructive) {
+                context.delete(quote)
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: { quote in
+            Text("Do you really want to delete this quote?")
         }
     }
     
