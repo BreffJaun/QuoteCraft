@@ -11,7 +11,6 @@ struct QuoteListItemView: View {
     
     let quote: Quote
     
-   
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             

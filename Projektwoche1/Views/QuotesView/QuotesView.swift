@@ -18,6 +18,8 @@ struct QuotesView: View {
     @State private var showAddQuoteSheet: Bool = false
     @State private var searchString: String = ""
     @State private var currSortOrder: SortOrder = .title
+    @State private var whichQuoteList: favQuotes = .nonFavQuotes
+    
     
     // Picker Style 😎
     //.https://stackoverflow.com/questions/57735761/how-to-change-selected-segment-color-in-swiftui-segmented-picker
@@ -82,10 +84,13 @@ struct QuotesView: View {
                 }
                 .padding(.horizontal)
                 
+//                let animationDuration = min(0.8, max(0.3, Double(quotes.count) * 1.20))
                 QuoteListView(
+                    whichQuoteListType: whichQuoteList,
                     sortOrder: currSortOrder.sortDescriptors,
                     searchString: searchString
                 )
+//                .animation(.easeInOut(duration: animationDuration), value: currSortOrder)
                 .animation(.default, value: currSortOrder)
                 .padding(.horizontal)
                 .padding(.top, 4)
