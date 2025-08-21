@@ -9,17 +9,17 @@ import SwiftUI
 import SwiftData
 
 struct UserProfilSheet: View {
-    
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     
     @Query private var users: [User]
     
+    @AppStorage("currentUserId") private var currentUserId: String?
+        
     @State private var username = ""
     @State private var selectedCategories: Set<Category> = []
     @State private var entryCategory: Category = .miscellaneous
     
-    @AppStorage("currentUserId") private var currentUserId: String?
     
     var body: some View {
         NavigationStack {

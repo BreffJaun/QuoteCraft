@@ -42,7 +42,6 @@ struct QuotesView: View {
         NavigationStack {
             VStack(spacing: 16) {
                 
-                // 🔍 Search Bar
                 VStack(alignment: .leading, spacing: 8) {
                     
                     HStack {
@@ -53,7 +52,7 @@ struct QuotesView: View {
                             TextField("Search for quotes...", text: $searchString)
                                 .textInputAutocapitalization(.never)
                                 .disableAutocorrection(true)
-                                .padding(.trailing, 24) // Platz für den X-Button
+                                .padding(.trailing, 24)
 
                             if !searchString.isEmpty {
                                 Button(action: {
@@ -73,7 +72,6 @@ struct QuotesView: View {
                 }
                 .padding(.horizontal)
                 
-                // 🔽 Sort Picker
                 HStack {
                     Picker("Sort", selection: $currSortOrder) {
                         ForEach(SortOrder.allCases) { order in
