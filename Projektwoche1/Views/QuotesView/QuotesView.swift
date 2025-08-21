@@ -19,7 +19,7 @@ struct QuotesView: View {
     @State private var searchString: String = ""
     @State private var currSortOrder: SortOrder = .title
     @State private var whichQuoteList: favQuotes = .nonFavQuotes
-    
+        
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {

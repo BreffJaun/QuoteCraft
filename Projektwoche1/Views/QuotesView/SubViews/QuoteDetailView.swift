@@ -20,6 +20,7 @@ struct QuoteDetailView: View {
     @State private var currentUser: User?
     @State private var quoteToDelete: Quote? = nil
     @State private var showDeleteAlert = false
+    @State private var showEditSheet = false
     
     var quote: Quote
     
@@ -123,6 +124,18 @@ struct QuoteDetailView: View {
                                 .clipShape(Circle())
                                 .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
                         }
+                        
+                        Button {
+                            showEditSheet = true
+                        } label: {
+                            Image(systemName: "pencil")
+                                .font(.title2)
+                                .padding(12)
+                                .background(.ultraThinMaterial)
+                                .foregroundColor(.blue)
+                                .clipShape(Circle())
+                                .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -167,6 +180,12 @@ struct QuoteDetailView: View {
             Button("Cancel", role: .cancel) {}
         } message: { quote in
             Text("Do you really want to delete this quote?")
+        }
+        .sheet(isPresented: $showEditSheet) {
+            EditQuoteSheet(
+                currentUserId: currentUserId,
+                initialQuote: quote
+            )
         }
     }
     
