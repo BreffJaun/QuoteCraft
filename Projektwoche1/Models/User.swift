@@ -18,7 +18,7 @@ class User {
         set { favCategoryRaw = newValue.map { $0.rawValue } }
     }
     @Relationship var favQuotes: [Quote] = []
-    @Relationship(inverse: \Quote.createdBy) var createdQuotes: [Quote] = []
+    @Relationship(deleteRule: .cascade, inverse: \Quote.createdBy) var createdQuotes: [Quote] = []
     
     init(
         id: UUID,

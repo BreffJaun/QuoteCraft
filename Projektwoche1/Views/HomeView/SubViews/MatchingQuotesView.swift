@@ -13,7 +13,7 @@ struct MatchingQuotesView: View {
     @Query private var users: [User]
     @Query private var quotes: [Quote]
     
-    @AppStorage("currentUserId") private var currentUserId: String?
+    @AppStorage("currentUserId") private var currentUserId: String = ""
     
     @State private var currentUser: User?
     
@@ -79,8 +79,9 @@ struct MatchingQuotesView: View {
                         
                     }
                 } else {
-                    Text("Loading user...")
-                        .foregroundColor(.gray)
+                    Text("Currently no user logged in...")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
             }
         }
@@ -101,18 +102,25 @@ struct MatchingQuotesView: View {
         .onAppear {
             loadCurrentUser()
         }
+        .onChange(of: currentUserId) {
+            loadCurrentUser()
+        }
+        .onChange(of: users) {
+            loadCurrentUser()
+        }
     }
     
     private func loadCurrentUser() {
-        if let currentUserId, let uuid = UUID(uuidString: currentUserId),
-           let foundUser = users.first(where: { $0.id == uuid }) {
-            currentUser = foundUser
-        } else if let firstUser = users.first {
-            // Kein User-ID gesetzt → ersten User nehmen
-            currentUser = firstUser
-            currentUserId = firstUser.id.uuidString
+        // Wenn currentUserId leer oder ungültig → kein User
+        guard !currentUserId.isEmpty,
+              let uuid = UUID(uuidString: currentUserId),
+              let foundUser = users.first(where: { $0.id == uuid }) else {
+            currentUser = nil
+            return
         }
+        currentUser = foundUser
     }
+
 }
 
 #Preview {

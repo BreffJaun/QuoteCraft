@@ -120,6 +120,8 @@ struct CategoriesView: View {
                         Image(systemName: "plus.bubble.fill")
                             .foregroundColor(Color.pinkAccent)
                     }
+                    .disabled(currentUserId?.isEmpty ?? true)
+                    .opacity((currentUserId?.isEmpty ?? true) ? 0.5 : 1.0)
                 }
             }
             .sheet(isPresented: $showAddQuoteSheet) {
