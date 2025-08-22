@@ -18,7 +18,10 @@ struct FilteredQuoteListView: View {
     let selectedCategory: Category?
     
     @AppStorage("currentUserId") private var currentUserId: String?
+    
     @State private var currentUser: User?
+    @State private var quoteToDelete: Quote? = nil
+    @State private var showDeleteAlert = false
     
     private var filteredQuotes: [Quote] {
         var filtered = quotes
@@ -59,31 +62,71 @@ struct FilteredQuoteListView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            ScrollView {
-                LazyVStack(spacing: 12) {
-                    if filteredQuotes.isEmpty {
-                        ContentUnavailableView {
-                            Label("No Quotes Found", systemImage: "quote.bubble")
-                        } description: {
-                            if selectedCategory != nil {
-                                Text("No quotes found in this category")
-                            } else if !searchString.isEmpty {
-                                Text("No quotes match your search")
-                            } else {
-                                Text("No quotes available")
-                            }
-                        }
-                        .padding(.top, 50)
+            if filteredQuotes.isEmpty {
+                ContentUnavailableView {
+                    Label("No Quotes Found", systemImage: "quote.bubble")
+                } description: {
+                    if selectedCategory != nil {
+                        Text("No quotes found in this category")
+                    } else if !searchString.isEmpty {
+                        Text("No quotes match your search")
                     } else {
-                        ForEach(filteredQuotes) { quote in
+                        Text("No quotes available")
+                    }
+                }
+                .padding(.top, 50)
+            } else {
+                List {
+                    ForEach(filteredQuotes) { quote in
+                        ZStack {
+                            // Unsichtbarer NavigationLink im Hintergrund
                             NavigationLink(destination: QuoteDetailView(quote: quote)) {
-                                QuoteListItemView(quote: quote)
+                                EmptyView()
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .opacity(0)
+                            
+                            // Sichtbarer Inhalt
+                            QuoteListItemView(quote: quote)
+                                .contentShape(Rectangle())
+                                .padding(.vertical, 6)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets())
+                        .swipeActions(edge: .trailing) {
+                            if let currentUser {
+                                if currentUser.createdQuotes.contains(where: { $0.id == quote.id }) {
+                                    Button(role: .destructive) {
+                                        quoteToDelete = quote
+                                        showDeleteAlert = true
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+                                
+                                // Favorit togglen
+                                let isFav = currentUser.favQuotes.contains(where: { $0.id == quote.id })
+                                Button {
+                                    if isFav {
+                                        if let idx = currentUser.favQuotes.firstIndex(where: { $0.id == quote.id }) {
+                                            currentUser.favQuotes.remove(at: idx)
+                                        }
+                                    } else {
+                                        currentUser.favQuotes.append(quote)
+                                    }
+                                } label: {
+                                    Label(isFav ? "Unfavorite" : "Favorite", systemImage: isFav ? "star.fill" : "star")
+                                }
+                                .tint(isFav ? .yellow : .gray)
+                            }
                         }
                     }
                 }
-                .padding(.bottom, 20)
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .background(Color.clear)
+                
             }
         }
         .padding()
