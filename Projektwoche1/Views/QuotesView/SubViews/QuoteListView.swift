@@ -57,22 +57,20 @@ struct QuoteListView: View {
         VStack(alignment: .leading, spacing: 12) {
             List {
                 if displayedQuotes.isEmpty {
-                    VStack {
-                        Spacer(minLength: 20)
+                    ContentUnavailableView {
+                        Label(
+                            whichQuoteList == .favQuotes ? "No Favorites" : "No Quotes Found",
+                            systemImage: whichQuoteList == .favQuotes ? "heart.slash" : "quote.bubble"
+                        )
+                    } description: {
                         if whichQuoteList == .favQuotes {
-                            Text("No favorites found 🫠")
-                                .foregroundColor(.secondary)
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
+                            Text("You haven't added any favorites yet")
+                        } else if !searchString.isEmpty {
+                            Text("No quotes match your search")
                         } else {
-                            Text("No results found 😢")
-                                .foregroundColor(.secondary)
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
+                            Text("No quotes available")
                         }
-                        Spacer(minLength: 20)
                     }
-                    .frame(maxWidth: .infinity)
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets())
