@@ -263,13 +263,3 @@ struct AddQuoteSheet: View {
 //    AddQuoteSheet()
 //}
 
-
-//    var authorName: String
-//    var title: String
-//    var quote: String
-//    var categoriesRaw: [String] = []
-//    var categories: [Category] {
-//        get { categoriesRaw.compactMap { Category(rawValue: $0) } }
-//        set { categoriesRaw = newValue.map { $0.rawValue } }
-//    }
-

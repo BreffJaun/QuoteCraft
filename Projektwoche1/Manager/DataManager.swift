@@ -30,6 +30,7 @@ class DataManager {
             
             return container
             
+            // Comment his line in and the block above out to use real Data and not the dummy Data
 //            return try ModelContainer(for: User.self, Quote.self)
         } catch {
             fatalError("❌ Failed to configure SwiftData ModelContainer: \(error)")

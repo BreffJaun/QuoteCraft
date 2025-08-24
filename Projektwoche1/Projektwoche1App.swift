@@ -16,14 +16,14 @@ struct Projektwoche1App: App {
     init() {
         let pinkAccent = UIColor(named: "PinkAccent")!
 
-        // Aktives Segment: Hintergrund pink, Text weiß
+        // Active Segment: Background pink, Text white
         UISegmentedControl.appearance().selectedSegmentTintColor = pinkAccent
         UISegmentedControl.appearance().setTitleTextAttributes(
             [.foregroundColor: UIColor.white],
             for: .selected
         )
 
-        // Inaktive Segmente: Text pink
+        // Inactive Segment: Text pink
         UISegmentedControl.appearance().setTitleTextAttributes(
             [.foregroundColor: UIColor.white],
             for: .normal
@@ -34,7 +34,6 @@ struct Projektwoche1App: App {
     var body: some Scene {
         WindowGroup {
             TabBarView()
-//                .modelContainer(for: [User.self, Quote.self])
                 .modelContainer(DataManager.container)
         }
     }

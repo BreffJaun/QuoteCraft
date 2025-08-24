@@ -111,7 +111,7 @@ struct MatchingQuotesView: View {
     }
     
     private func loadCurrentUser() {
-        // Wenn currentUserId leer oder ungültig → kein User
+        // If currentUserId empoty or invalid → no User
         guard !currentUserId.isEmpty,
               let uuid = UUID(uuidString: currentUserId),
               let foundUser = users.first(where: { $0.id == uuid }) else {
@@ -123,16 +123,8 @@ struct MatchingQuotesView: View {
 
 }
 
-#Preview {
-    MatchingQuotesView()
-}
-
-
-
-//private func loadCurrentUser() {
-//    if let currentUserId,
-//       let uuid = UUID(uuidString: currentUserId),
-//       let foundUser = users.first(where: { $0.id == uuid }) {
-//        currentUser = foundUser
-//    }
+//#Preview {
+//    MatchingQuotesView()
 //}
+
+

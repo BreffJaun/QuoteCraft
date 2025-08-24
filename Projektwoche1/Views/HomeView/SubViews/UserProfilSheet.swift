@@ -147,23 +147,24 @@ struct UserProfilSheet: View {
                     .disabled(username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedCategories.isEmpty)
                     .opacity(username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedCategories.isEmpty ? 0.5 : 1.0)
                     
-                    Button {
-                        currentUserId = ""
-                        print(currentUserId)
-                        dismiss()
-                    } label: {
-                        Text("Reset USERID")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                    .fill(Color.accentColor)
-                            )
-                            .padding(.horizontal)
-                            .shadow(radius: 4)
-                    }
+                    // Temporary Button to delete the currentUserId manually! 
+//                    Button {
+//                        currentUserId = ""
+//                        print(currentUserId)
+//                        dismiss()
+//                    } label: {
+//                        Text("Reset USERID")
+//                            .font(.headline)
+//                            .foregroundColor(.white)
+//                            .frame(maxWidth: .infinity)
+//                            .padding()
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 14, style: .continuous)
+//                                    .fill(Color.accentColor)
+//                            )
+//                            .padding(.horizontal)
+//                            .shadow(radius: 4)
+//                    }
     
                 }
                 .padding(.vertical, 20)

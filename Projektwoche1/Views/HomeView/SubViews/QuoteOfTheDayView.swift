@@ -26,7 +26,7 @@ struct QuoteOfTheDayView: View {
         NavigationStack {
             VStack(spacing: 16) {
                 
-                // Header mit Titel + Shuffle-Button
+                // Header with Titel + Shuffle-Button
                 HStack {
                     Text("Quote")
                         .font(.title2.weight(.semibold))
@@ -41,7 +41,7 @@ struct QuoteOfTheDayView: View {
                         }
                     }
                     
-                    // Button zur Detailansicht
+                    // Button to DetailView
                     Button {
                         showDetail = true
                     } label: {
@@ -110,7 +110,7 @@ struct QuoteOfTheDayView: View {
                     }
                 }
                 
-                // Kategorien
+                // Categories
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Categories")
                         .font(.caption.weight(.semibold))

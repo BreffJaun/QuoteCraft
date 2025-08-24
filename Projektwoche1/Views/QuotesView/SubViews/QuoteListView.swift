@@ -76,17 +76,10 @@ struct QuoteListView: View {
                     .listRowInsets(EdgeInsets())
                 } else {
                     ForEach(displayedQuotes) { quote in
-//                        NavigationLink {
-//                            QuoteDetailView(quote: quote)
-//                        } label: {
-//                            QuoteListItemView(quote: quote)
-//                                .contentShape(Rectangle())
-//                                .padding(.vertical, 6)
-//                        }
                         // Hide Disclosure Indicator 🤓
                         // https://www.devtechie.com/community/public/posts/225203-how-to-hide-disclosure-indicator-from-navigationlink-in-swiftui
                         ZStack {
-                            // Unsichtbarer NavigationLink im Hintergrund
+                            // Invisible NavigationLink in the background
                             NavigationLink(destination: QuoteDetailView(quote: quote)) {
                                 EmptyView()
                             }
@@ -112,7 +105,7 @@ struct QuoteListView: View {
                                     }
                                 }
                                 
-                                // Favorit togglen
+                                // Toggle favorit
                                 let isFav = currentUser.favQuotes.contains(where: { $0.id == quote.id })
                                 Button {
                                     if isFav {
@@ -175,7 +168,7 @@ struct QuoteListView: View {
         }
     }
     
-    // Hilfsfunktion zum Filtern und Sortieren von Zitaten
+    // Help function for filtering and sorting quotations
     private func filterAndSortQuotes(quotes: [Quote], searchString: String, sortOrder: [SortDescriptor<Quote>]) -> [Quote] {
             // Filtern nach Suchstring
             let filtered = searchString.isEmpty ? quotes : quotes.filter { quote in
@@ -185,7 +178,7 @@ struct QuoteListView: View {
                 quote.createdBy.username.localizedCaseInsensitiveContains(searchString)
             }
             
-            // Sortieren
+            // Sort
             return filtered.sorted(using: sortOrder)
         }
 }

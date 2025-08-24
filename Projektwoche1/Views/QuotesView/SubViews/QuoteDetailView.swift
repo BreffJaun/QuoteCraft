@@ -239,7 +239,7 @@ struct QuoteDetailView: View {
     // MARK: - Share Function
     private func generateAndShareQuoteImage() {
         let renderer = ImageRenderer(content: QuoteShareView(quote: quote))
-        renderer.scale = 3.0 // Für hohe Qualität
+        renderer.scale = 3.0 // For high quality
         
         if let image = renderer.uiImage {
             shareImage = image
@@ -247,19 +247,6 @@ struct QuoteDetailView: View {
         }
     }
 }
-
-//#Preview {
-//    QuoteDetailView(
-//        quote: Quote(
-//            title: "Inception",
-//            quote: "You mustn't be afraid to dream a little bigger, darling.",
-//            authorName: "Eames",
-//            createdBy: User(id: UUID(), username: "Jeff", favCategories: [.movie]),
-//            categories: [.movie, .inspirational]
-//        )
-//    )
-//}
-
 
 //#Preview {
 //    QuoteDetailView()

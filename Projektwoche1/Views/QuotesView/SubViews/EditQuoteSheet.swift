@@ -25,7 +25,7 @@ struct EditQuoteSheet: View {
     @State private var authorName: String
     @State private var selectedCategories: Set<Category>
     
-    // Initializer, um die Felder vorauszufüllen
+    // Initializer, to fill the fields 
     init(currentUserId: String?, initialQuote: Quote) {
         self.initialQuote = initialQuote
 //        self._currentUserId = AppStorage(wrappedValue: currentUserId, "currentUserId")
