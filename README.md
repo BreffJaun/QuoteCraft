@@ -1,6 +1,6 @@
 # QuoteCraft  
 
-<img src="QuoteCraft/Images/QuoteCraft.png" width="75%">  
+<img src="QuoteCraft/Images/QuoteCraft" width="75%">  
 
 This SwiftUI app lets users discover, favorite, and organize inspiring quotes. ✨  
 On every app start a random quote with its author is displayed. Users can refresh the quote, save favorites, and explore them in a dedicated list.  
